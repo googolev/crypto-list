@@ -38,6 +38,9 @@ export default defineComponent({
             if (e.target.value && e.target.value.length >= 2) {
                 await SearchService.searchToken(e.target.value)
             }
+            if (!e.target.value) {
+                search_result.value = []
+            }
         }, 500),
 
         async handlePushToken (coin) {

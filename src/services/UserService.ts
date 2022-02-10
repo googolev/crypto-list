@@ -4,7 +4,8 @@ import { ref } from 'vue'
 import PriceService from "./PriceService";
 import { account } from '../utils/account'
 
-import { collection, getDocs, setDoc, doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore"; 
+import { collection, getDocs, setDoc, doc, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import router from '../router'
 
 const users = collection(db, 'users')
 
@@ -69,11 +70,13 @@ class TutorialDataService {
 
   async register(address: string) {
     const querySnapshot = await getDoc(doc(db, 'users', address))
+    router.push({name: 'WatchList'})
     if (querySnapshot.exists()) {
       return
     } else {
       const user = {
         address: address,
+        watched_tokens: []
       }
       await setDoc(doc(db, 'users', address), user)
     }
